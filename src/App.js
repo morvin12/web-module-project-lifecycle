@@ -35,8 +35,8 @@ class App extends React.Component {
             followers: response.data
           })
         })
-        .catch( error => {
-          console.log(error);
+        .catch( err => {
+          console.error(err);
         })
         .finally(
           this.setState({...this.state, search: ''})
@@ -44,12 +44,12 @@ class App extends React.Component {
     } 
   }
 
-  handleChange = (event) => {
-    this.setState({...this.state, search: event.target.value});
+  handleChange = (e) => {
+    this.setState({...this.state, search: e.target.value});
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
     axios.get(`https://api.github.com/users/${this.state.search}`)
       .then(response => {
         this.setState({
@@ -75,7 +75,6 @@ class App extends React.Component {
       })
   }
 
-
   render() {
     return(
     <div>
@@ -91,7 +90,7 @@ class App extends React.Component {
         <button onClick={this.handleSubmit}>Search</button>
       </form>
       <User user={this.state.user}/>
-        <FollowerList followers={this.state.followers} handleFollowerClick={this.handleFollowerClick}/>
+      <FollowerList followers={this.state.followers} handleFollowerClick={this.handleFollowerClick}/>
     </div>
     );
   }
